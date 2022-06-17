@@ -1,0 +1,198 @@
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+body,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+form,
+dl,
+dt,
+dd {
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+ul {
+  list-style: none;
+}
+img {
+  border-style: none;
+}
+/** 清除内外边距 **/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+form, fieldset, legend, button, input, textarea, /* form elements 表单元素 */
+th, td /* table elements 表格元素 */ {
+  margin: 0;
+  padding: 0;
+}
+/** 设置默认字体 **/
+body,
+button,
+input,
+select,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+address,
+cite,
+dfn,
+em,
+var,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
+  /* 将斜体扶正 */
+  font-style: normal;
+  font-weight: normal;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: courier new, courier, monospace;
+} /* 统一等宽字体 */
+small {
+  font-size: 12px;
+} /* 小于 12px 的中文很难阅读, 让 small 正常化 */
+/** 重置列表元素 **/
+ul,
+ol {
+  list-style: none;
+}
+/** 重置文本格式元素 **/
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+sup {
+  vertical-align: text-top;
+} /* 重置, 减少对行高的影响 */
+sub {
+  vertical-align: text-bottom;
+}
+/** 重置表单元素 **/
+legend {
+  color: #000;
+} /* for ie6 */
+fieldset,
+img {
+  border: 0;
+} /* img 搭车：让链接里的 img 无边框 */
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+} /* 使得表单元素在 ie 下能继承字体大小 */
+/* 注：optgroup 无法扶正 */
+/** 重置表格元素 **/
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* 重置 HTML5 元素 */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+mark {
+  background: #ff0;
+}
+/* 设置placeholder的默认样式 */
+:-moz-placeholder {
+  color: #ddd;
+  opacity: 1;
+}
+::-moz-placeholder {
+  color: #ddd;
+  opacity: 1;
+}
+input:-ms-input-placeholder {
+  color: #ddd;
+  opacity: 1;
+}
+input::-webkit-input-placeholder {
+  color: #ddd;
+  opacity: 1;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+input {
+  border: none;
+  appearance: none;
+  -moz-appearance: none;
+  outline: none; 
+  /* //input标签聚焦不出现默认边框: */
+  -webkit-appearance: none; 
+  /* //用于IOS下移除原生样式 */
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+  border: none;
+}
+
+.button {
+  border: 0;
+  background-color: none;
+  outline: none;
+  -webkit-appearance: none; 
+  /* //用于IOS下移除原生样式 */
+}

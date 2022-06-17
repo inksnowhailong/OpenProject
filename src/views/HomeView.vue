@@ -1,23 +1,19 @@
 <template>
-  <div class="home">
-    <ul>
-      <li v-for="(item, index) in projectData" :key="index">
-        {{ item }}
-      </li>
-    </ul>
-    <div
-      class="drag-box"
-      @drop.prevent.stop="handleDrop($event)"
-      @dragover.prevent.stop
-    >
-      <h1>拖入你的文件</h1>
-      <button @click="openExe">运行文件</button>
-    </div>
-  </div>
+  <n-layout class="main-layout">
+    <n-layout-header>颐和园路</n-layout-header>
+    <n-layout has-sider class="content-layout">
+      <n-layout-sider>
+        <single-open></single-open>
+      </n-layout-sider>
+      <n-layout-content content-style="padding: 24px;">
+        平山道
+      </n-layout-content>
+    </n-layout>
+  </n-layout>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineAsyncComponent, defineComponent } from "vue";
 import { mapMutations, mapState } from "vuex";
 export default defineComponent({
   name: "HomeView",
@@ -25,6 +21,14 @@ export default defineComponent({
     ...mapState({
       projectData: "projectData",
     }),
+  },
+  components: {
+    singleOpen: defineAsyncComponent(
+      () => import("../components/single-open.vue")
+    ),
+  },
+  mounted() {
+    console.log(this);
   },
   methods: {
     // 收集拖入的文件信息
@@ -40,7 +44,6 @@ export default defineComponent({
       }
     },
     async openExe() {
-      // console.log(fs, 1);
       const data = await window.$elec.openProject(this.projectData[0].path);
       console.log(data);
     },
@@ -50,11 +53,23 @@ export default defineComponent({
   },
 });
 </script>
-<style>
+<style scoped>
 .home .drag-box {
   width: 400px;
   height: 400px;
   border: 1px dashed #999;
   margin: 0 auto;
+}
+
+.n-layout-header {
+  height: 80px;
+}
+
+.main-layout,
+.n-layout-sider {
+  height: 100%;
+}
+.content-layout {
+  height: calc(100% - 80px);
 }
 </style>
