@@ -4,10 +4,13 @@ import {
   // component
   NButton,
   NCard,
+  NH1,
+  NH3,
   NLayout,
   NLayoutContent,
   NLayoutHeader,
   NLayoutSider,
+  NText,
 } from "naive-ui";
 export default create({
   components: [
@@ -18,5 +21,8 @@ export default create({
     NLayoutHeader,
     NLayoutSider,
     NCard,
+    NH1,
+    NH3,
+    NText,
   ],
 });

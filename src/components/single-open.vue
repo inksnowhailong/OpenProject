@@ -1,6 +1,10 @@
 <template>
   <!-- 左侧启动单项的项目 -->
-  <n-card title="卡片"> 卡片内容 </n-card>
+  <n-card embedded>
+    <n-h3 prefix="bar" align-text type="info">
+      <n-text type="info"> sin(x) </n-text>
+    </n-h3>
+  </n-card>
 </template>
 
 <script lang="ts">

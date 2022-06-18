@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 type payloadType = {
-  key: string;
-  info: object;
+  name: string;
+  path: string;
 };
 interface stateType {
   [key: string]: any;
@@ -17,7 +17,7 @@ export default createStore({
   getters: {},
   mutations: {
     addProject(state: stateType, payload: payloadType) {
-      state.projectData.push(payload.info);
+      state.projectData.push(payload);
     },
   },
   actions: {},

@@ -1,6 +1,8 @@
 <template>
   <n-layout class="main-layout">
-    <n-layout-header>颐和园路</n-layout-header>
+    <n-layout-header>
+      <main-headers></main-headers>
+    </n-layout-header>
     <n-layout has-sider class="content-layout">
       <n-layout-sider>
         <single-open></single-open>
@@ -15,6 +17,7 @@
 <script lang="ts">
 import { defineAsyncComponent, defineComponent } from "vue";
 import { mapMutations, mapState } from "vuex";
+import MainHeaders from "../components/main-headers.vue";
 export default defineComponent({
   name: "HomeView",
   computed: {
@@ -26,23 +29,15 @@ export default defineComponent({
     singleOpen: defineAsyncComponent(
       () => import("../components/single-open.vue")
     ),
+    mainHeaders: defineAsyncComponent(
+      () => import("../components/main-headers.vue")
+    ),
+    MainHeaders,
   },
   mounted() {
     console.log(this);
   },
   methods: {
-    // 收集拖入的文件信息
-    handleDrop(e: DragEvent) {
-      if (e.dataTransfer) {
-        for (const file of e?.dataTransfer.files) {
-          console.log(file);
-
-          const name = file.name;
-          const path = file.path;
-          this.addProject({ info: { name, path } });
-        }
-      }
-    },
     async openExe() {
       const data = await window.$elec.openProject(this.projectData[0].path);
       console.log(data);
@@ -63,6 +58,8 @@ export default defineComponent({
 
 .n-layout-header {
   height: 80px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .main-layout,
