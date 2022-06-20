@@ -4,12 +4,16 @@ import {
   // component
   NButton,
   NCard,
-  NH1,
+  NForm,
+  NFormItem,
   NH3,
+  NInput,
   NLayout,
   NLayoutContent,
   NLayoutHeader,
   NLayoutSider,
+  NModal,
+  NSwitch,
   NText,
 } from "naive-ui";
 export default create({
@@ -21,8 +25,12 @@ export default create({
     NLayoutHeader,
     NLayoutSider,
     NCard,
-    NH1,
     NH3,
     NText,
+    NModal,
+    NForm,
+    NFormItem,
+    NInput,
+    NSwitch,
   ],
 });

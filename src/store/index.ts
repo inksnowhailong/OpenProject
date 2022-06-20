@@ -1,7 +1,10 @@
 import { createStore } from "vuex";
+// 项目的类型
 type payloadType = {
   name: string;
   path: string;
+  isApp: boolean;
+  code?: string;
 };
 interface stateType {
   [key: string]: any;
@@ -17,7 +20,11 @@ export default createStore({
   getters: {},
   mutations: {
     addProject(state: stateType, payload: payloadType) {
-      state.projectData.push(payload);
+      if (payload.isApp) {
+        state.appData.push(payload);
+      } else {
+        state.projectData.push(payload);
+      }
     },
   },
   actions: {},
