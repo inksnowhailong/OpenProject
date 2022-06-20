@@ -39,7 +39,6 @@
 </template>
 
 <script lang="ts">
-import { file } from "@babel/types";
 import { defineComponent, reactive, ref } from "vue";
 import { useStore } from "vuex";
 type fileType = {
@@ -57,6 +56,7 @@ export default defineComponent({
     // 弹窗
     let showModal = ref(false);
     const formRef = ref();
+
     return {
       showModal,
       fileData,
@@ -91,7 +91,6 @@ export default defineComponent({
         fileData.path = "";
         fileData.isApp = true;
         fileData.code = "";
-
         showModal.value = false;
       },
     };

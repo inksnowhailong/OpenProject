@@ -1,15 +1,10 @@
 import { createStore } from "vuex";
-// 项目的类型
-type payloadType = {
-  name: string;
-  path: string;
-  isApp: boolean;
-  code?: string;
-};
+import { db, AppType, ProgectType } from "./indexDB";
+
 interface stateType {
   [key: string]: any;
 }
-export default createStore({
+const store = createStore({
   state: {
     // 待启动项目数据
     projectData: [],
@@ -19,14 +14,24 @@ export default createStore({
   },
   getters: {},
   mutations: {
-    addProject(state: stateType, payload: payloadType) {
+    addProject(state: stateType, payload: AppType | ProgectType) {
       if (payload.isApp) {
         state.appData.push(payload);
+        db.apps.add(payload as AppType);
       } else {
         state.projectData.push(payload);
+        db.projects.add(payload as ProgectType);
       }
+    },
+    init(state: stateType, payload: stateType) {
+      state = payload;
     },
   },
   actions: {},
   modules: {},
 });
+// init
+// console.log(store.state);
+
+// store.commit("init", {});
+export default store;
