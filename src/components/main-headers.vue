@@ -84,7 +84,7 @@ export default defineComponent({
       },
       saveNewProject() {
         // 提交vueX
-        store.commit("addProject", fileData);
+        store.dispatch("addAction", fileData);
         // 重置
         formRef.value.restoreValidation();
         fileData.name = "";

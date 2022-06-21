@@ -1,4 +1,4 @@
-import { createStore } from "vuex";
+import { createStore, ActionContext } from "vuex";
 import { db, AppType, ProgectType } from "./indexDB";
 
 interface stateType {
@@ -14,24 +14,52 @@ const store = createStore({
   },
   getters: {},
   mutations: {
-    addProject(state: stateType, payload: AppType | ProgectType) {
-      if (payload.isApp) {
-        state.appData.push(payload);
-        db.apps.add(payload as AppType);
-      } else {
-        state.projectData.push(payload);
-        db.projects.add(payload as ProgectType);
-      }
+    addProject(state: stateType, payload: ProgectType) {
+      state.projectData.push(payload);
+    },
+    addApp(state: stateType, payload: AppType) {
+      state.appData.push(payload);
     },
     init(state: stateType, payload: stateType) {
-      state = payload;
+      state.projectData = payload.projectData;
+      state.appData = payload.appData;
     },
   },
-  actions: {},
+  actions: {
+    addAction(
+      { commit }: ActionContext<stateType, stateType>,
+      payload: AppType | ProgectType
+    ) {
+      if (payload.isApp) {
+        db.apps
+          .add({ ...payload })
+          .then(() => {
+            commit("addApp", payload);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        db.projects
+          .add({ ...(payload as ProgectType) })
+          .then(() => {
+            commit("addProject", payload);
+          })
+          .catch((err) => {
+            return err;
+          });
+      }
+    },
+  },
   modules: {},
 });
-// init
-// console.log(store.state);
 
-// store.commit("init", {});
+// 初始化
+init();
+async function init() {
+  const appData = await db.apps.toArray();
+  const projectData = await db.projects.toArray();
+  store.commit("init", { appData, projectData });
+}
+
 export default store;

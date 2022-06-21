@@ -21,7 +21,7 @@ export class MyDatabase extends Dexie {
     super("MyDatabase");
     this.version(1).stores({
       projects: "++id, name, path,isApp,code",
-      apps: "++id, name, path,isApp,",
+      apps: "++id, name, path,isApp",
     });
   }
 }

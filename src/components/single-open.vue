@@ -5,7 +5,7 @@
       prefix="bar"
       align-text
       type="info"
-      v-for="(item, index) in projectData"
+      v-for="(item, index) in [...projectData, ...appData]"
       :key="index"
     >
       <n-text type="info">{{ item.name }}</n-text>
@@ -22,6 +22,7 @@ export default defineComponent({
   computed: {
     ...mapState({
       projectData: "projectData",
+      appData: "appData",
     }),
   },
 });
