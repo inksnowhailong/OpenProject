@@ -3,8 +3,8 @@
     <n-layout-header>
       <main-headers></main-headers>
     </n-layout-header>
-    <n-layout has-sider class="content-layout">
-      <n-layout-sider>
+    <n-layout has-sider class="content-layout" :native-scrollbar="false">
+      <n-layout-sider :native-scrollbar="false">
         <single-open></single-open>
       </n-layout-sider>
       <n-layout-content content-style="padding: 24px;">
@@ -18,6 +18,7 @@
 import { defineAsyncComponent, defineComponent } from "vue";
 import { mapMutations, mapState } from "vuex";
 import MainHeaders from "../components/main-headers.vue";
+
 export default defineComponent({
   name: "HomeView",
   computed: {

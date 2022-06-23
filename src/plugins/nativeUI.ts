@@ -7,6 +7,7 @@ import {
   NForm,
   NFormItem,
   NH3,
+  NIcon,
   NInput,
   NLayout,
   NLayoutContent,
@@ -32,5 +33,6 @@ export default create({
     NFormItem,
     NInput,
     NSwitch,
+    NIcon,
   ],
 });
