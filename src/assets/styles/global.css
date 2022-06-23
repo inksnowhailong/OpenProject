@@ -196,3 +196,7 @@ img {
   -webkit-appearance: none; 
   /* //用于IOS下移除原生样式 */
 }
+
+:root{
+  --main-height:calc(100% - 80px)
+}

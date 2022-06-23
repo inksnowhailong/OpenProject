@@ -3,13 +3,16 @@
     <n-layout-header>
       <main-headers></main-headers>
     </n-layout-header>
-    <n-layout has-sider class="content-layout" :native-scrollbar="false">
-      <n-layout-sider :native-scrollbar="false">
+    <n-layout
+      has-sider
+      class="content-layout"
+      :native-scrollbar="false"
+      :content-style="{ height: '100%' }"
+    >
+      <n-layout-sider :native-scrollbar="false" :content-style="{ height: '100%' }">
         <single-open></single-open>
       </n-layout-sider>
-      <n-layout-content content-style="padding: 24px;">
-        平山道
-      </n-layout-content>
+      <n-layout-content content-style="padding: 24px;"> 平山道 </n-layout-content>
     </n-layout>
   </n-layout>
 </template>
@@ -27,22 +30,11 @@ export default defineComponent({
     }),
   },
   components: {
-    singleOpen: defineAsyncComponent(
-      () => import("../components/single-open.vue")
-    ),
-    mainHeaders: defineAsyncComponent(
-      () => import("../components/main-headers.vue")
-    ),
+    singleOpen: defineAsyncComponent(() => import("../components/single-open.vue")),
+    mainHeaders: defineAsyncComponent(() => import("../components/main-headers.vue")),
     MainHeaders,
   },
-  mounted() {
-    console.log(this);
-  },
   methods: {
-    async openExe() {
-      const data = await window.$elec.openProject(this.projectData[0].path);
-      console.log(data);
-    },
     ...mapMutations({
       addProject: "addProject",
     }),
@@ -67,7 +59,8 @@ export default defineComponent({
 .n-layout-sider {
   height: 100%;
 }
+
 .content-layout {
-  height: calc(100% - 80px);
+  height: var(--main-height);
 }
 </style>

@@ -3,7 +3,7 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import path from "path";
 import { exec } from "child_process";
-
+import {openProject,openApp} from './ele-module/app-on'
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Scheme must be registered before the app is ready
@@ -73,7 +73,10 @@ app.on("ready", async () => {
       console.error("Vue Devtools failed to install:", e.toString());
     }
   }
-  ipcMain.handle("openProject", openProject as any);
+
+  // ipc通讯 执行指定方法  传入方法执行所需的参数 
+  ipcMain.handle("openProject", openProject(exec) as any);
+  ipcMain.handle("openApp", openApp(exec) as any);
   createWindow();
 });
 
@@ -92,11 +95,4 @@ if (isDevelopment) {
   }
 }
 
-function openProject(event: any, path: string) {
-  exec(`start ${path}`, (error, stdout, stderr) => {
-    if (error) {
-      return error;
-    }
-    return false;
-  });
-}
+

@@ -10,7 +10,7 @@
       class="listItem"
     >
       <n-text>{{ item.name }}</n-text>
-      <n-button strong secondary circle type="info">
+      <n-button strong secondary circle type="info" @click="openExe(item, index)">
         <template #icon>
           <n-icon><Play /></n-icon>
         </template>
@@ -23,23 +23,36 @@
 import { Play } from "@vicons/ionicons5";
 import { defineComponent } from "vue";
 import { mapState } from "vuex";
-
+import { ProgectType, AppOrProject } from "../store/indexDB";
 export default defineComponent({
   name: "single-open",
   computed: {
-    ListData() {
-      let newArr = [...this.projectData, ...this.appData];
-      return newArr;
-    },
     ...mapState({
       projectData: "projectData",
       appData: "appData",
     }),
+    ListData(): Array<AppOrProject> {
+      const newArr = [...this.projectData, ...this.appData];
+      return newArr;
+    },
   },
   components: {
     Play,
   },
-  methods: {},
+  methods: {
+    async openExe(itemData: AppOrProject, index: number) {
+      if (itemData.isApp) {
+        const data = await window.$elec.openApp(itemData.path);
+        console.log(data);
+      } else {
+        const data = await window.$elec.openProject(
+          (itemData as ProgectType).code,
+          itemData.path
+        );
+        console.log(data);
+      }
+    },
+  },
 });
 </script>
 

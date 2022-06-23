@@ -1,5 +1,5 @@
 import { createStore, ActionContext } from "vuex";
-import { db, AppType, ProgectType } from "./indexDB";
+import { db, AppType, ProgectType,AppOrProject } from "./indexDB";
 
 interface stateType {
   [key: string]: any;
@@ -28,11 +28,12 @@ const store = createStore({
   actions: {
     addAction(
       { commit }: ActionContext<stateType, stateType>,
-      payload: AppType | ProgectType
+      payload: AppOrProject
     ) {
       if (payload.isApp) {
+        payload ={ ...payload }
         db.apps
-          .add({ ...payload })
+          .add(payload)
           .then(() => {
             commit("addApp", payload);
           })
