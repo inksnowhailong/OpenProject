@@ -23,4 +23,6 @@ pnpm-debug.log*
 *.sw?
 
 #Electron-builder output
-/dist_electron
+
+/dist_electron/*
+!/dist_electron/openProject Setup 0.1.0.exe

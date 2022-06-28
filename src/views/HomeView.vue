@@ -13,7 +13,7 @@
         <n-layout-sider :native-scrollbar="false" :content-style="{ height: '100%' }">
           <single-open></single-open>
         </n-layout-sider>
-        <n-layout-content content-style="padding: 24px;"> 平山道 </n-layout-content>
+        <n-layout-content content-style="padding: 24px;"> </n-layout-content>
       </n-layout>
     </n-layout>
   </appProvider>
@@ -54,7 +54,7 @@ export default defineComponent({
 
 .n-layout-header {
   height: 80px;
-  padding: 10px;
+  padding: 0 5px;
   box-sizing: border-box;
 }
 

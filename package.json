@@ -1,6 +1,8 @@
 {
   "name": "electron-demo",
   "version": "0.1.0",
+  "description": "inksnow  inksnowhailong@gmail.com 快速批量启动应用程序或以指定代码在目录内执行，快速批量启动前端项目",
+  "author": "inksnow ",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -11,11 +13,19 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "main": "background.ts",
+  "main": "background.js",
+  "nsis": {
+    "oneClick": false,
+    "perMachine": true,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": false
+  },
   "dependencies": {
     "core-js": "^3.8.3",
     "dexie": "^3.2.2",
     "ts-loader": "~8.2.0",
+    "update-electron-app": "^2.0.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"

@@ -5,6 +5,7 @@ contextBridge.exposeInMainWorld('$elec', {
   openProject: (code: string, path: string) =>
     ipcRenderer.invoke('openProject',{ code, path}),
   openApp: (path: string) => ipcRenderer.invoke('openApp', {path}),
+  closewin: () => ipcRenderer.invoke('closewin'),
 })
 
 // window.addEventListener("DOMContentLoaded", () => {

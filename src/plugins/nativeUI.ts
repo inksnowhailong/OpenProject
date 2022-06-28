@@ -4,10 +4,12 @@ import {
   // component
   NButton,
   NCard,
-  NDialog,
   NDialogProvider,
   NForm,
   NFormItem,
+  NGi,
+  NGradientText,
+  NGrid,
   NH3,
   NIcon,
   NInput,
@@ -42,5 +44,9 @@ export default create({
     NPopselect,
     NDialogProvider,
     NMessageProvider,
+    NLoadingBarProvider,
+    NGi,
+    NGrid,
+    NGradientText
   ],
 });

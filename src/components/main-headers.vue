@@ -1,4 +1,5 @@
 <template>
+  <electronHeader></electronHeader>
   <n-h3 @drop="handleDrop" @dragover.stop.prevent v-bind="$attrs">
     <n-text type="primary">
       将你的
@@ -36,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, reactive, ref, defineAsyncComponent } from "vue";
 import { useStore } from "vuex";
 type fileType = {
   name: string;
@@ -92,6 +93,9 @@ export default defineComponent({
       },
     };
   },
+  components: {
+    electronHeader: defineAsyncComponent(() => import("./electron-header.vue")),
+  },
 });
 </script>
 
@@ -100,8 +104,10 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 50px;
+  margin: 0 auto;
   border: 2px #dcdfe6 dashed;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 </style>

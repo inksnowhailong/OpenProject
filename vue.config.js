@@ -6,9 +6,10 @@ module.exports = defineConfig({
       preload: 'src/preload.ts',
       builderOptions: {
         extraResources: ['src', 'src/res/'],
+        appId: 'inksnow-openProject',
+        productName: 'openProject',
       },
       externals: ['knex', 'sqlite3'],
     },
-   
   },
 })

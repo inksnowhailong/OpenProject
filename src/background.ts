@@ -3,16 +3,23 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import path from "path";
 import { exec } from "child_process";
-import {openProject,openApp} from './ele-module/app-on'
-const isDevelopment = process.env.NODE_ENV !== "production";
+import ons from './ele-module/app-on'
+import update from 'update-electron-app'
+update({
+  repo: 'inksnowhailong/openProject'
+})
+console.log();
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+let win: any = null
+app.disableHardwareAcceleration()//程序 ready 前禁用GPU加速  解决打包后的程序打开黑屏
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 async function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 1280,
     height: 800,
     show: false,
@@ -34,12 +41,12 @@ async function createWindow() {
 
     },
   });
-  ipcMain.on("trigger-devtool", () => {
-    const webContent = win.webContents;
-    webContent.isDevToolsOpened()
-      ? webContent.closeDevTools()
-      : webContent.openDevTools();
-  });
+  // ipcMain.on("trigger-devtool", () => {
+  //   const webContent = win.webContents;
+  //   webContent.isDevToolsOpened()
+  //     ? webContent.closeDevTools()
+  //     : webContent.openDevTools();
+  // });
   win.once("ready-to-show", () => {
     win.show();
   });
@@ -78,11 +85,18 @@ app.on("ready", async () => {
       console.error("Vue Devtools failed to install:", e.toString());
     }
   }
-
-  // ipc通讯 执行指定方法  传入方法执行所需的参数 
-  ipcMain.handle("openProject", openProject(exec) as any);
-  ipcMain.handle("openApp", openApp(exec) as any);
+  
+ 
+  // ipcMain.handle("openProject", openProject(exec) as any);
+  // ipcMain.handle("openApp", openApp(exec) as any);
   createWindow();
+   // ipc通讯 执行指定方法  传入方法执行所需的参数 
+   Object.keys(ons).forEach((item: string) => {
+    // type onsType = keyof typeof ons 
+    const targetfunc = ons[item as keyof typeof ons] 
+    
+    ipcMain.handle(item, targetfunc({exec,win}) as any);
+  })
 });
 
 // Exit cleanly on request from parent process in development mode.
