@@ -1,27 +1,29 @@
 <template>
-  <n-layout class="main-layout">
-    <n-layout-header>
-      <main-headers></main-headers>
-    </n-layout-header>
-    <n-layout
-      has-sider
-      class="content-layout"
-      :native-scrollbar="false"
-      :content-style="{ height: '100%' }"
-    >
-      <n-layout-sider :native-scrollbar="false" :content-style="{ height: '100%' }">
-        <single-open></single-open>
-      </n-layout-sider>
-      <n-layout-content content-style="padding: 24px;"> 平山道 </n-layout-content>
+  <appProvider>
+    <n-layout class="main-layout">
+      <n-layout-header>
+        <main-headers></main-headers>
+      </n-layout-header>
+      <n-layout
+        has-sider
+        class="content-layout"
+        :native-scrollbar="false"
+        :content-style="{ height: '100%' }"
+      >
+        <n-layout-sider :native-scrollbar="false" :content-style="{ height: '100%' }">
+          <single-open></single-open>
+        </n-layout-sider>
+        <n-layout-content content-style="padding: 24px;"> 平山道 </n-layout-content>
+      </n-layout>
     </n-layout>
-  </n-layout>
+  </appProvider>
 </template>
 
 <script lang="ts">
 import { defineAsyncComponent, defineComponent } from "vue";
 import { mapMutations, mapState } from "vuex";
 import MainHeaders from "../components/main-headers.vue";
-
+import appProvider from "@/components/app-provider.vue";
 export default defineComponent({
   name: "HomeView",
   computed: {
@@ -33,6 +35,7 @@ export default defineComponent({
     singleOpen: defineAsyncComponent(() => import("../components/single-open.vue")),
     mainHeaders: defineAsyncComponent(() => import("../components/main-headers.vue")),
     MainHeaders,
+    appProvider,
   },
   methods: {
     ...mapMutations({

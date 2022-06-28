@@ -6,26 +6,58 @@
       align-text
       type="info"
       v-for="(item, index) in ListData"
-      :key="index"
+      :key="item.id"
       class="listItem"
     >
-      <n-text>{{ item.name }}</n-text>
-      <n-button strong secondary circle type="info" @click="openExe(item, index)">
-        <template #icon>
-          <n-icon><Play /></n-icon>
-        </template>
-      </n-button>
+      <n-popselect
+        :options="options"
+        trigger="hover"
+        @update:value="(op:string) => selectHandler(op, item, index)"
+      >
+        <n-button
+          @dblclick="openExe(item, index)"
+          strong
+          secondary
+          type="info"
+          class="selectBtn"
+          >{{ item.name }}</n-button
+        >
+      </n-popselect>
     </n-h3>
   </n-card>
 </template>
 
 <script lang="ts">
-import { Play } from "@vicons/ionicons5";
 import { defineComponent } from "vue";
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import { ProgectType, AppOrProject } from "../store/indexDB";
+import { useMessage, useDialog } from "naive-ui";
 export default defineComponent({
   name: "single-open",
+  setup() {
+    return {
+      message: useMessage(),
+      dialog: useDialog(),
+    };
+  },
+  data() {
+    return {
+      options: [
+        {
+          label: "启动",
+          value: "启动",
+        },
+        {
+          label: "修改",
+          value: "修改",
+        },
+        {
+          label: "删除",
+          value: "删除",
+        },
+      ],
+    };
+  },
   computed: {
     ...mapState({
       projectData: "projectData",
@@ -36,10 +68,24 @@ export default defineComponent({
       return newArr;
     },
   },
-  components: {
-    Play,
-  },
+
   methods: {
+    ...mapActions({
+      delAction: "delAction",
+    }),
+    selectHandler(op: string, itemData: AppOrProject, index: number) {
+      switch (op) {
+        case "启动":
+          this.openExe(itemData, index);
+          break;
+        case "删除":
+          this.confirmDeletion(itemData);
+          break;
+        default:
+          break;
+      }
+    },
+    // 启动程序或项目
     async openExe(itemData: AppOrProject, index: number) {
       if (itemData.isApp) {
         const data = await window.$elec.openApp(itemData.path);
@@ -51,6 +97,22 @@ export default defineComponent({
         );
         console.log(data);
       }
+    },
+    // 确认删除
+    confirmDeletion(data: AppOrProject) {
+      this.dialog.warning({
+        title: "警告",
+        content: "你确定删除？",
+        positiveText: "确定",
+        negativeText: "不确定",
+        onPositiveClick: () => {
+          this.delAction(data);
+          this.message.success("确定");
+        },
+        onNegativeClick: () => {
+          this.message.error("不确定");
+        },
+      });
     },
   },
 });
@@ -68,5 +130,8 @@ export default defineComponent({
 }
 .n-h3:hover .n-text {
   color: var(--n-bar-color);
+}
+.selectBtn {
+  width: 100%;
 }
 </style>

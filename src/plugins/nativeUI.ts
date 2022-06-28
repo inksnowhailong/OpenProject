@@ -4,6 +4,8 @@ import {
   // component
   NButton,
   NCard,
+  NDialog,
+  NDialogProvider,
   NForm,
   NFormItem,
   NH3,
@@ -13,7 +15,10 @@ import {
   NLayoutContent,
   NLayoutHeader,
   NLayoutSider,
+  NLoadingBarProvider,
+  NMessageProvider,
   NModal,
+  NPopselect,
   NSwitch,
   NText,
 } from "naive-ui";
@@ -34,5 +39,8 @@ export default create({
     NInput,
     NSwitch,
     NIcon,
+    NPopselect,
+    NDialogProvider,
+    NMessageProvider,
   ],
 });

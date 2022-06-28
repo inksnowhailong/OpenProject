@@ -26,10 +26,7 @@
         </n-switch>
       </n-form-item>
       <n-form-item label="运行命令" path="code" v-if="!fileData.isApp">
-        <n-input
-          v-model:value="fileData.code"
-          placeholder="项目目录下的启动命令"
-        />
+        <n-input v-model:value="fileData.code" placeholder="项目目录下的启动命令" />
       </n-form-item>
     </n-form>
     <template #action>

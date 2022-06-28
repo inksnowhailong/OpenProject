@@ -17,16 +17,21 @@ async function createWindow() {
     height: 800,
     show: false,
     titleBarStyle: "hiddenInset",
+    frame: false,//去掉原有的标题栏
+    minimizable: true, // 可否最小化
+    maximizable: true, // 可否最大化
+    closable: true, // 展示关闭按钮
+    fullscreen: false, // MAC下是否可以全屏
+    skipTaskbar: false, // 在任务栏中显示窗口
+    acceptFirstMouse: true, // 是否允许单击页面来激活窗口
+    transparent: false,
+    movable: true, // 可否移动
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
-      // enableRemoteModule: true,
-      // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env
         .ELECTRON_NODE_INTEGRATION as unknown as boolean,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-      // nodeIntegration: true,
-      // contextIsolation: false,
+
     },
   });
   ipcMain.on("trigger-devtool", () => {
