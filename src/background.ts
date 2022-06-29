@@ -8,7 +8,6 @@ import update from 'update-electron-app'
 update({
   repo: 'inksnowhailong/openProject'
 })
-console.log();
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 let win: any = null

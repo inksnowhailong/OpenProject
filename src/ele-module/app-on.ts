@@ -4,12 +4,13 @@ export default {
   // 指定命令打开目录
   openProject({ exec }:argstype) {
     return (event: any, data: openProjectParams) => {
+      // "
       exec(
-        `start cmd /c   "cd /d ${data.path} && ${data.code}" `,
+        `start cmd title ${data.name} /c   " cd /d ${data.path} && TITLE ${data.name} &&  ${data.code}"  `,
         (error: object) => {
           //
           if (error) {
-            return error
+            return error  
           }
           return false
         }

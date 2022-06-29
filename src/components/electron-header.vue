@@ -1,11 +1,11 @@
 <template>
-  <n-grid class="grid" x-gap="24" :cols="8">
-    <n-gi>
+  <n-grid class="grid" x-gap="24" :cols="24">
+    <n-gi span="4">
       <div class="gi drag left-first">
         <n-gradient-text type="info"> Ink Snow </n-gradient-text>
       </div>
     </n-gi>
-    <n-gi span="5">
+    <n-gi span="18">
       <div class="gi drag" />
     </n-gi>
     <n-gi>
