@@ -88,14 +88,19 @@ export default defineComponent({
     // 启动程序或项目
     async openExe(itemData: AppOrProject, index: number) {
       if (itemData.isApp) {
-        const data = await window.$elec.openApp(itemData.path, itemData.name);
+        const { path, name } = itemData;
+        const data = await window.$elec.openApp({
+          path,
+          name,
+        });
         console.log(data);
       } else {
-        const data = await window.$elec.openProject(
-          (itemData as ProgectType).code,
-          itemData.path,
-          itemData.name
-        );
+        const { path, name, code } = itemData as ProgectType;
+        const data = await window.$elec.openProject({
+          code,
+          path,
+          name,
+        });
         console.log(data);
       }
     },
