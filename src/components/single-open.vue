@@ -47,10 +47,10 @@ export default defineComponent({
           label: "启动",
           value: "启动",
         },
-        {
-          label: "修改",
-          value: "修改",
-        },
+        // {
+        //   label: "修改",
+        //   value: "修改",
+        // },
         {
           label: "删除",
           value: "删除",
