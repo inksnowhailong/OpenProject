@@ -14,63 +14,64 @@ const store = createStore({
   },
   getters: {},
   mutations: {
+    // 添加项目
     addProject(state: stateType, payload: ProgectType) {
       state.projectData.push(payload)
     },
+    // 添加App
     addApp(state: stateType, payload: AppType) {
       state.appData.push(payload)
     },
+    // 删除项目
     delProject(state, id) {
       const index = state.projectData.indexOf(
-        (item: ProgectType) => item.id === id
+        (item: ProgectType) => item.id === id,
       )
       state.projectData.splice(index, 1)
     },
+    // 删除App
     delApp(state, id) {
-      const index = state.appData.indexOf(
-        (item: AppType) => item.id === id
-      )
+      const index = state.appData.indexOf((item: AppType) => item.id === id)
       state.appData.splice(index, 1)
     },
-
+    // 初始化
     init(state: stateType, payload: stateType) {
       state.projectData = payload.projectData
       state.appData = payload.appData
     },
   },
   actions: {
-    addAction(
+    // 添加动作
+    putAction(
       { commit }: ActionContext<stateType, stateType>,
-      payload: AppOrProject
+      payload: AppOrProject,
     ) {
-      // 处理成对象  数据库不能保存代理对象
-      payload = { ...payload }
       if (payload.isApp) {
         db.apps
-          .add(payload)
+          .put(payload)
           .then(() => {
-            console.log(1)
-
-            commit('addApp', payload)
+            // commit('addApp', payload)
+            init()
           })
           .catch((err) => {
             console.log(err)
           })
       } else {
         db.projects
-          .add(payload as ProgectType)
+          .put(payload as ProgectType)
           .then(() => {
-            console.log(1)
-            commit('addProject', payload)
+            // commit('addProject', payload)
+            init()
           })
           .catch((err) => {
             return err
           })
       }
     },
+    // 删除
     delAction(
       { commit }: ActionContext<stateType, stateType>,
-      payload: AppOrProject
+      payload: AppOrProject,
     ) {
       payload = { ...payload }
       if (payload.isApp) {

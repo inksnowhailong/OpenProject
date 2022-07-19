@@ -19,8 +19,8 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 1280,
-    height: 800,
+    width: 850,
+    height: 500,
     show: false,
     titleBarStyle: "hiddenInset",
     frame: false,//去掉原有的标题栏
