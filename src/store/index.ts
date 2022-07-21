@@ -1,8 +1,8 @@
-import { createStore, ActionContext } from 'vuex'
-import { db, AppType, ProgectType, AppOrProject } from './indexDB'
+import { createStore, ActionContext } from 'vuex';
+import { db, AppType, ProgectType, AppOrProject } from './indexDB';
 
 interface stateType {
-  [key: string]: any
+  [key: string]: any;
 }
 const store = createStore({
   state: {
@@ -10,100 +10,92 @@ const store = createStore({
     projectData: [],
 
     // 待启动应用
-    appData: [],
+    appData: []
   },
   getters: {},
   mutations: {
     // 添加项目
     addProject(state: stateType, payload: ProgectType) {
-      state.projectData.push(payload)
+      state.projectData.push(payload);
     },
     // 添加App
     addApp(state: stateType, payload: AppType) {
-      state.appData.push(payload)
+      state.appData.push(payload);
     },
     // 删除项目
     delProject(state, id) {
-      const index = state.projectData.indexOf(
-        (item: ProgectType) => item.id === id,
-      )
-      state.projectData.splice(index, 1)
+      const index = state.projectData.indexOf((item: ProgectType) => item.id === id);
+      state.projectData.splice(index, 1);
     },
     // 删除App
     delApp(state, id) {
-      const index = state.appData.indexOf((item: AppType) => item.id === id)
-      state.appData.splice(index, 1)
+      const index = state.appData.indexOf((item: AppType) => item.id === id);
+      index !== -1 && state.appData.splice(index, 1);
     },
     // 初始化
     init(state: stateType, payload: stateType) {
-      state.projectData = payload.projectData
-      state.appData = payload.appData
-    },
+      state.projectData = payload.projectData;
+      state.appData = payload.appData;
+    }
   },
   actions: {
     // 添加动作
-    putAction(
-      { commit }: ActionContext<stateType, stateType>,
-      payload: AppOrProject,
-    ) {
+    putAction({ commit }: ActionContext<stateType, stateType>, payload: AppOrProject) {
       if (payload.isApp) {
         db.apps
           .put(payload)
           .then(() => {
             // commit('addApp', payload)
-            init()
+            init();
           })
           .catch((err) => {
-            console.log(err)
-          })
+            console.log(err);
+          });
       } else {
         db.projects
           .put(payload as ProgectType)
           .then(() => {
             // commit('addProject', payload)
-            init()
+            init();
           })
           .catch((err) => {
-            return err
-          })
+            return err;
+          });
       }
     },
     // 删除
-    delAction(
-      { commit }: ActionContext<stateType, stateType>,
-      payload: AppOrProject,
-    ) {
-      payload = { ...payload }
+    delAction({ commit }: ActionContext<stateType, stateType>, payload: AppOrProject) {
+      payload = { ...payload };
       if (payload.isApp) {
         db.apps
           .delete(payload.id as number)
           .then(() => {
-            commit('delApp', payload.id)
+            commit('delApp', payload.id);
           })
           .catch((err) => {
-            console.log(err)
-          })
+            console.log(err);
+          });
       } else {
         db.projects
           .delete(payload.id as number)
           .then(() => {
-            commit('delProject', payload.id)
+            commit('delProject', payload.id);
           })
           .catch((err) => {
-            return err
-          })
+            return err;
+          });
       }
-    },
+    }
   },
-  modules: {},
-})
+  modules: {}
+});
 
 // 初始化
-init()
+init();
 async function init() {
-  const appData = await db.apps.toArray()
-  const projectData = await db.projects.toArray()
-  store.commit('init', { appData, projectData })
+  const appData = await db.apps.toArray();
+  const projectData = await db.projects.toArray();
+  store.commit('init', { appData, projectData });
 }
 
-export default store
+export default store;

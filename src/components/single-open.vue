@@ -93,7 +93,6 @@ async function openExe(itemData: AppOrProject, index: number) {
       path,
       name,
     });
-    console.log(data);
   }
 }
 function openChangeModel(itemData: AppOrProject) {
@@ -107,7 +106,7 @@ function confirmDeletion(data: AppOrProject) {
     positiveText: "确定",
     negativeText: "不确定",
     onPositiveClick: () => {
-      store.dispatch("delAction");
+      store.dispatch("delAction",data.id);
       message.success("确定");
     },
     onNegativeClick: () => {
