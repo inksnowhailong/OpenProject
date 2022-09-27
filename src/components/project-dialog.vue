@@ -74,6 +74,7 @@ function openModel(file: fileDataType & { type: string }, type = 'add') {
     fileData.value = JSON.parse(JSON.stringify(file as fileType));
   } else {
     //添加
+    fileData.value.id = undefined
     fileData.value.name = file.name;
     fileData.value.path = file.path;
     // 判断是文件还是文件夹
@@ -93,10 +94,6 @@ function saveNewProject() {
   store.dispatch('putAction', toRaw(fileData.value));
   // // 重置
   formRef.value.restoreValidation();
-  // fileData.value.name = "";
-  // fileData.value.path = "";
-  // fileData.value.isApp = true;
-  // fileData.value.code = "";
   showModal.value = false;
 }
 // 暴露出去打开方法
