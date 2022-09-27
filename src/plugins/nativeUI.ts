@@ -23,7 +23,15 @@ import {
   NPopselect,
   NSwitch,
   NText,
-} from "naive-ui";
+  NSpace,
+  NEllipsis,
+  NTransfer,
+  NButtonGroup,
+  NTag,
+  NPopconfirm,
+  NScrollbar
+  
+} from 'naive-ui';
 export default create({
   components: [
     NButton,
@@ -47,6 +55,14 @@ export default create({
     NLoadingBarProvider,
     NGi,
     NGrid,
-    NGradientText
-  ],
+    NGradientText,
+    NSpace,
+    NEllipsis,
+    NTransfer,
+    NButtonGroup,
+    NSpace,
+    NTag,
+    NPopconfirm,
+    NScrollbar
+  ]
 });

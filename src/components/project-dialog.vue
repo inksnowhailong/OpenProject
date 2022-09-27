@@ -18,10 +18,7 @@
           </n-switch>
         </n-form-item>
         <n-form-item label="运行命令" path="code" v-if="!fileData.isApp">
-          <n-input
-            v-model:value="fileData.code"
-            placeholder="项目目录下的启动命令"
-          />
+          <n-input v-model:value="fileData.code" placeholder="项目目录下的启动命令" />
         </n-form-item>
       </n-form>
       <template #action>
@@ -32,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineExpose, toRaw } from "vue";
-import { useStore } from "vuex";
+import { ref, defineExpose, toRaw } from 'vue';
+import { useStore } from 'vuex';
 type fileType = {
   name: string;
   path: string;
@@ -52,32 +49,40 @@ const store = useStore();
 let rules = {
   name: {
     required: true,
-    message: "请输入项目名称",
-    trigger: ["input", "blur"],
+    message: '请输入项目名称',
+    trigger: ['input', 'blur']
   },
   path: {
     required: true,
-    message: "请输入项目名称",
-    trigger: ["input", "blur"],
-  },
+    message: '请输入项目名称',
+    trigger: ['input', 'blur']
+  }
 };
 // 文件数据
-let fileData = ref<fileType>({ name: "", path: "", isApp: true });
+let fileData = ref<fileType>({ name: '', path: '', isApp: true });
 // 弹窗
 let showModal = ref(false);
 // 拿取form
 const formRef = ref();
 
 // 父组件获取了文件信息 在此触发显示弹出
-function openModel(file: fileDataType, type = "add") {
+function openModel(file: fileDataType & { type: string }, type = 'add') {
   // add或者edit
-  if (type === "edit") {
+  if (type === 'edit') {
     //修改
-    fileData.value = file as fileType;
+    // 进行深拷贝
+    fileData.value = JSON.parse(JSON.stringify(file as fileType));
   } else {
     //添加
     fileData.value.name = file.name;
     fileData.value.path = file.path;
+    // 判断是文件还是文件夹
+    if (file.type !== '') {
+      // type 不为空就一定是文件
+      fileData.value.isApp = true;
+    } else {
+      fileData.value.isApp = false;
+    }
   }
   // 打开窗口
   showModal.value = true;
@@ -85,7 +90,7 @@ function openModel(file: fileDataType, type = "add") {
 // 保存项目信息
 function saveNewProject() {
   // 提交添加或跟更新  需要传递原始值  ref对对象使用时候 会是一个refimpl 里面再套个proxy
-  store.dispatch("putAction", toRaw(fileData.value));
+  store.dispatch('putAction', toRaw(fileData.value));
   // // 重置
   formRef.value.restoreValidation();
   // fileData.value.name = "";
@@ -96,7 +101,7 @@ function saveNewProject() {
 }
 // 暴露出去打开方法
 defineExpose({
-  openModel,
+  openModel
 });
 </script>
 <style scoped></style>
